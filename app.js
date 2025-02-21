@@ -3,7 +3,8 @@ const sketchBoard = document.querySelector('.sketchBoard');
 const sizeButton = document.querySelector('#sizeButton')
 const rowInput = document.querySelector('#row');
 const columnInput = document.querySelector('#column');
-
+const body = document.querySelector('body');
+let isHoldingMouseButton = false;
 
 let numberOfRows = 16;
 let numberOfColumns = 16;
@@ -20,21 +21,26 @@ function createSketchBoard()
         {
             const square = document.createElement("div");
             square.classList.add("square");
-    
+            
+            let sizeX = 660 / numberOfRows;
+            let sizeY = 660 / numberOfColumns;
           
-    
+            square.style.width = `${sizeX}px`;
+            square.style.height = `${sizeY}px`;
             row.appendChild(square);
+            
     
         }
         sketchBoard.appendChild(row);
     }
+    InitSquareMouseEvent();
 }
 
 
 function removeSketchBoard()
 {
-    const squares = document.querySelectorAll('.sketchBoard .square')
-    squares.forEach((element) => element.remove());
+    const rows = document.querySelectorAll(".sketchBoard .row");
+    rows.forEach((element) => element.remove());
 }
 
 function limitSquareNumber(direction)
@@ -51,6 +57,20 @@ function SendNewRowAndColumnValues()
     numberOfColumns = columnInput.value;
 }
 
+function InitSquareMouseEvent()
+{
+    const squares = document.querySelectorAll(".square");
+    for(let element of squares)
+    {
+        element.addEventListener("mouseenter", ()=>{
+            if(isHoldingMouseButton)
+            {
+                element.classList.add("penColor");
+            }
+        })
+    }
+}
+
 sizeButton.addEventListener("click", ()=>{
 
     removeSketchBoard();
@@ -64,6 +84,14 @@ rowInput.addEventListener("input", ()=> {
 
 columnInput.addEventListener("input", ()=>{
     limitSquareNumber(columnInput);
+})
+
+body.addEventListener("mousedown", ()=>{
+    isHoldingMouseButton = true;
+})
+
+body.addEventListener("mouseup",()=>{
+    isHoldingMouseButton = false;
 })
 
 createSketchBoard();
