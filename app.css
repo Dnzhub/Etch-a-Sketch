@@ -6,6 +6,7 @@ body{
     font-family: Roboto, sans-serif;
     display: flex;
     flex-direction: column;
+
     
    
 }
@@ -31,13 +32,20 @@ body{
     height: 40px;
     
 }
-
 .container{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     flex: 1 1 0;
+}
+.sketchBoard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 960px;
+
 }
 
 .row{
@@ -49,6 +57,10 @@ body{
     width: 30px;
     height: 30px;
     background-color: rgb(238, 233, 227);
+    border: 0.5px solid rgb(209, 207, 207);
+}
+.square:hover{
+    background-color: rgb(209, 208, 206);;
 }
 
 .footer{
@@ -59,4 +71,31 @@ body{
     justify-content: center;
     align-items: center;
     height: 40px;
+}
+
+.sketchBoardSize
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px;
+}
+
+#sizeButton{
+    background-color: white;
+    padding: 6px 15px;
+    text-shadow: 1px 1px 2px rgb(223, 194, 194), 0 0 1em rgb(82, 82, 87), 0 0 0.2em rgb(230, 230, 238);
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+#numberOfRC
+{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    text-shadow: 1px 1px 2px rgb(223, 194, 194), 0 0 1em rgb(82, 82, 87), 0 0 0.2em rgb(230, 230, 238);
+  
 }
