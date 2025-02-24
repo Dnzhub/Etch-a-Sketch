@@ -1,18 +1,35 @@
+const INITIAL_ROW = 16;
+const INITIAL_COLUMN = 16;
+const MAX_ROW_COLUMN = 64;
+const MIN_ROW_COLUMN = 1;
+const DEFAULT_COLOR = "#000000"
+const ERASER_COLOR = "#ebe8dd";
+const RANDOM_MODE = "random";
+const DEFAULT_MODE = "default";
+const CUSTOM_MODE = "custom";
+const ERASER_MODE = "eraser";
+
 const container = document.querySelector('.container');
 const sketchBoard = document.querySelector('.sketchBoard');
 const sizeButton = document.querySelector('#sizeButton')
 const rowInput = document.querySelector('#row');
 const columnInput = document.querySelector('#column');
-const body = document.querySelector('body');
 const opacity = document.querySelector('#opacity')
+const color = document.querySelector('#color');
+const randomColor = document.querySelector('.randomColor');
+const defaultColor = document.querySelector('.defaultColor');
+const customColor = document.querySelector('.customColor');
+const eraser = document.querySelector('.eraser');
+
 let opacityValue = document.querySelector('.opacityValue');
 let isHoldingMouseButton = false;
+let numberOfRows = INITIAL_ROW;
+let numberOfColumns = INITIAL_COLUMN;
+let maxColumnAndRow = MAX_ROW_COLUMN;
+let minColumnAndRow = MIN_ROW_COLUMN;
+let selectedColorMode = "default"
 opacityValue.innerText = opacity.value;
-let numberOfRows = 16;
-let numberOfColumns = 16;
 
-let maxColumnAndRow = 64;
-let minColumnAndRow = 1;
 
 function createSketchBoard()
 {
@@ -64,25 +81,68 @@ function InitSquareMouseEvent()
     const squares = document.querySelectorAll(".square");
     for(let element of squares)
     {
-      
+        
         element.addEventListener("mouseenter", (e)=>{
             if(isHoldingMouseButton)
             {
-                element.classList.add("penColor");
+           
+                ChangeBackgroundColor(element);
             }
         })
        
         element.addEventListener("mousedown", ()=>{
-            if(isHoldingMouseButton)
-            {
-
-            }
-            element.classList.add("penColor");
+            ChangeBackgroundColor(element);
 
         })
        
     }
 }
+function ChangeBackgroundColor(element)
+{
+    switch (selectedColorMode) {
+        case DEFAULT_MODE:
+            element.style.backgroundColor = DEFAULT_COLOR;
+            color.value = DEFAULT_COLOR;
+            break;
+        case RANDOM_MODE:
+            let randomColor = GenerateRandomColor();
+            element.style.backgroundColor = randomColor;
+            color.value = randomColor;
+            break;
+        case CUSTOM_MODE:
+            element.style.backgroundColor = color.value;
+            break;
+        case ERASER_MODE:
+            element.style.backgroundColor = ERASER_COLOR;
+            break;
+        default:
+            break;
+    }
+        
+}
+function GenerateRandomColor()
+{
+    let r = parseInt(Math.floor(Math.random() * 255) + 1);
+    let g = parseInt(Math.floor(Math.random() * 255) + 1);
+    let b = parseInt(Math.floor(Math.random() * 255) + 1);
+
+    return rgbToHex(r,g,b);
+}
+
+function componentToHex(component)
+{
+    const hex = component.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r,g,b)
+{
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+
+
+
 
 sizeButton.addEventListener("click", ()=>{
 
@@ -102,19 +162,37 @@ columnInput.addEventListener("input", ()=>{
 sketchBoard.addEventListener("mousedown", (e)=>{
 
     e.preventDefault();
-    isHoldingMouseButton = true;
-
-    console.log("body mousedown")
-    
+    isHoldingMouseButton = true;    
 })
 
 sketchBoard.addEventListener("mouseup",(e)=>{
     isHoldingMouseButton = false;
-    console.log("body mouseup")
 
 })
 
 opacity.addEventListener("input", (e)=>{
     opacityValue.innerText = e.target.value;
 })
-createSketchBoard();
+
+randomColor.addEventListener("click", ()=>
+{
+    selectedColorMode = RANDOM_MODE;
+})
+
+defaultColor.addEventListener("click", ()=>{
+    selectedColorMode = DEFAULT_MODE;
+})
+
+customColor.addEventListener("click", ()=>{
+    selectedColorMode = CUSTOM_MODE;
+})
+
+eraser.addEventListener("click", ()=>{
+    selectedColorMode = ERASER_MODE;
+})
+
+window.addEventListener("load", ()=>{
+
+    createSketchBoard();
+})
+
