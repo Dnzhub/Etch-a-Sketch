@@ -19,6 +19,7 @@
                 <input type="number" id="row" name="row" min="1" max="32" value="16">
                 <label for="column">Column</label>
                 <input type="number" id="column" name="column" min="1" max="32" value="16">
+          
             </div>
             <div>
                 <button id="sizeButton">Create</button>
@@ -29,6 +30,20 @@
         <div class="sketchBoard">
         </div>
 
+        <div class="options">
+            <label for="color">Column</label>
+            <input type="color" name="color" id="color">
+
+            <button class="randomizerButton">Random Color</button>
+
+            <div class="opacityContainer">
+                <label for="opacity">Opacity</label>
+                <input type="range" id="opacity" name="opacity" min="0" max="100" value="50" step="10" list="markers" />
+                <div class="opacityValue">1</div>
+            </div>
+          
+         
+        </div>
         
     </div>
 

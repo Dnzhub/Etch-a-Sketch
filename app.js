@@ -4,8 +4,10 @@ const sizeButton = document.querySelector('#sizeButton')
 const rowInput = document.querySelector('#row');
 const columnInput = document.querySelector('#column');
 const body = document.querySelector('body');
+const opacity = document.querySelector('#opacity')
+let opacityValue = document.querySelector('.opacityValue');
 let isHoldingMouseButton = false;
-
+opacityValue.innerText = opacity.value;
 let numberOfRows = 16;
 let numberOfColumns = 16;
 
@@ -62,12 +64,23 @@ function InitSquareMouseEvent()
     const squares = document.querySelectorAll(".square");
     for(let element of squares)
     {
-        element.addEventListener("mouseenter", ()=>{
+      
+        element.addEventListener("mouseenter", (e)=>{
             if(isHoldingMouseButton)
             {
                 element.classList.add("penColor");
             }
         })
+       
+        element.addEventListener("mousedown", ()=>{
+            if(isHoldingMouseButton)
+            {
+
+            }
+            element.classList.add("penColor");
+
+        })
+       
     }
 }
 
@@ -86,12 +99,22 @@ columnInput.addEventListener("input", ()=>{
     limitSquareNumber(columnInput);
 })
 
-body.addEventListener("mousedown", ()=>{
+sketchBoard.addEventListener("mousedown", (e)=>{
+
+    e.preventDefault();
     isHoldingMouseButton = true;
+
+    console.log("body mousedown")
+    
 })
 
-body.addEventListener("mouseup",()=>{
+sketchBoard.addEventListener("mouseup",(e)=>{
     isHoldingMouseButton = false;
+    console.log("body mouseup")
+
 })
 
+opacity.addEventListener("input", (e)=>{
+    opacityValue.innerText = e.target.value;
+})
 createSketchBoard();
