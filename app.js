@@ -13,37 +13,36 @@ const container = document.querySelector('.container');
 const sketchBoard = document.querySelector('.sketchBoard');
 const sizeButton = document.querySelector('#sizeButton')
 const rowInput = document.querySelector('#row');
-const columnInput = document.querySelector('#column');
 const opacity = document.querySelector('#opacity')
 const color = document.querySelector('#color');
 const randomColor = document.querySelector('.randomColor');
 const defaultColor = document.querySelector('.defaultColor');
 const customColor = document.querySelector('.customColor');
 const eraser = document.querySelector('.eraser');
+const gridSizeString = document.querySelector('.gridSizeString');
 
-let opacityValue = document.querySelector('.opacityValue');
+let opacityValueString = document.querySelector('.opacityValue');
 let isHoldingMouseButton = false;
-let numberOfRows = INITIAL_ROW;
-let numberOfColumns = INITIAL_COLUMN;
+let numberOfGrid = INITIAL_ROW;
 let maxColumnAndRow = MAX_ROW_COLUMN;
 let minColumnAndRow = MIN_ROW_COLUMN;
 let selectedColorMode = "default"
 let selectedOpacity = 0.5;
-opacityValue.innerText = opacity.value;
+opacityValueString.innerText = opacity.value;
 
 
 function createSketchBoard()
 {
-    for (let i = 0; i < numberOfRows; i++) {
+    for (let i = 0; i < numberOfGrid; i++) {
         const row = document.createElement('div');
         row.classList.add("row");
-        for(let i = 0; i < numberOfColumns; i++)
+        for(let i = 0; i < numberOfGrid; i++)
         {
             const square = document.createElement("div");
             square.classList.add("square");
             
-            let sizeX = 660 / numberOfRows;
-            let sizeY = 660 / numberOfColumns;
+            let sizeX = 660 / numberOfGrid;
+            let sizeY = 660 / numberOfGrid;
           
             square.style.width = `${sizeX}px`;
             square.style.height = `${sizeY}px`;
@@ -73,8 +72,7 @@ function limitSquareNumber(direction)
 
 function SendNewRowAndColumnValues()
 {
-    numberOfRows = rowInput.value;
-    numberOfColumns = columnInput.value;
+    numberOfGrid = rowInput.value;
 }
 
 function InitSquareMouseEvent()
@@ -148,6 +146,10 @@ function rgbToHex(r,g,b)
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
+function printGridSize()
+{
+    gridSizeString.innerText = `${row.value} x ${row.value}`;
+}
 
 sizeButton.addEventListener("click", ()=>{
 
@@ -158,14 +160,13 @@ sizeButton.addEventListener("click", ()=>{
 
 rowInput.addEventListener("input", ()=> {
     limitSquareNumber(rowInput);
+    printGridSize();
 })
 
-columnInput.addEventListener("input", ()=>{
-    limitSquareNumber(columnInput);
-})
+
 
 sketchBoard.addEventListener("mousedown", (e)=>{
-    //Note: If you dont use preventDefault, sometimes mouseup event does not firing
+    //Note: If you don't use preventDefault, sometimes mouseup event does not firing
     e.preventDefault();
     isHoldingMouseButton = true;    
 })
@@ -176,7 +177,7 @@ sketchBoard.addEventListener("mouseup",(e)=>{
 })
 
 opacity.addEventListener("input", (e)=>{
-    opacityValue.innerText = e.target.value;
+    opacityValueString.innerText = e.target.value;
     //Get number between 0 - 1
     selectedOpacity = e.target.value * 0.01;
 })
@@ -196,6 +197,9 @@ customColor.addEventListener("click", ()=>{
 
 eraser.addEventListener("click", ()=>{
     selectedColorMode = ERASER_MODE;
+    selectedOpacity = 1;
+    opacity.value = 100;
+    opacityValueString.innerText= "100";
 })
 
 window.addEventListener("load", ()=>{

@@ -9,20 +9,19 @@
 <body>
     <div class="header">
         <div class="logo">Sketch Board</div>
-        <div class="links"><img src="./images/github-mark-white.svg" alt="git-hub"></div>
+        <div class="links"><a href="https://github.com/Dnzhub" target="_blank"><img src="./images/github-mark-white.svg" alt="git-hub"></a></div>
     </div>
     <div class="container">
         
         <div class="sketchBoardSize">
             <div id="numberOfRC">
-                <label for="row">Row</label>
+                <label for="row">Grid Size</label>
                 <input type="number" id="row" name="row" min="1" max="32" value="16">
-                <label for="column">Column</label>
-                <input type="number" id="column" name="column" min="1" max="32" value="16">
+                <div class="gridSizeString">16 x 16</div>
           
             </div>
             <div>
-                <button id="sizeButton">Create</button>
+                <button id="sizeButton">Create Grid</button>
             </div>
         </div>
         
@@ -47,7 +46,7 @@
             </div>
             
             
-            <button class="customColor">Custom Mode</button>
+            <button class="customColor">Color Picker</button>
             <button class="eraser">Eraser</button>
 
         
@@ -58,7 +57,7 @@
     </div>
 
     <div class="footer">
-        <footer>Copyright © 2025 Deniz Yılmaz</footer>
+        <footer>Copyright © 2025 Dnzhub</footer>
     </div>
     <script src="app.js"></script>
 </body>
