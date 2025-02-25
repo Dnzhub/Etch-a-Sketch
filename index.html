@@ -31,19 +31,26 @@
         </div>
 
         <div class="options">
-            <label for="color">Color</label>
-            <input type="color" name="color" id="color">
-
+           
             <button class="randomColor">Random Mode</button>
             <button class="defaultColor">Default Mode</button>
-            <button class="customColor">Custom Mode</button>
-            <button class="eraser">Eraser</button>
+            <div class="colorContainer">
+                <label for="color">Color</label>
+                <input type="color" name="color" id="color">
 
-            <div class="opacityContainer">
+
                 <label for="opacity">Opacity</label>
                 <input type="range" id="opacity" name="opacity" min="0" max="100" value="50" step="10" list="markers" />
                 <div class="opacityValue">1</div>
+                
+    
             </div>
+            
+            
+            <button class="customColor">Custom Mode</button>
+            <button class="eraser">Eraser</button>
+
+        
           
          
         </div>

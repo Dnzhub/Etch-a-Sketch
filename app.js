@@ -28,6 +28,7 @@ let numberOfColumns = INITIAL_COLUMN;
 let maxColumnAndRow = MAX_ROW_COLUMN;
 let minColumnAndRow = MIN_ROW_COLUMN;
 let selectedColorMode = "default"
+let selectedOpacity = 0.5;
 opacityValue.innerText = opacity.value;
 
 
@@ -85,7 +86,7 @@ function InitSquareMouseEvent()
         element.addEventListener("mouseenter", (e)=>{
             if(isHoldingMouseButton)
             {
-           
+               
                 ChangeBackgroundColor(element);
             }
         })
@@ -99,6 +100,7 @@ function InitSquareMouseEvent()
 }
 function ChangeBackgroundColor(element)
 {
+    SetOpacity(element);
     switch (selectedColorMode) {
         case DEFAULT_MODE:
             element.style.backgroundColor = DEFAULT_COLOR;
@@ -120,6 +122,12 @@ function ChangeBackgroundColor(element)
     }
         
 }
+
+function SetOpacity(element)
+{
+    element.style.opacity = selectedOpacity;
+}
+
 function GenerateRandomColor()
 {
     let r = parseInt(Math.floor(Math.random() * 255) + 1);
@@ -141,9 +149,6 @@ function rgbToHex(r,g,b)
 }
 
 
-
-
-
 sizeButton.addEventListener("click", ()=>{
 
     removeSketchBoard();
@@ -160,7 +165,7 @@ columnInput.addEventListener("input", ()=>{
 })
 
 sketchBoard.addEventListener("mousedown", (e)=>{
-
+    //Note: If you dont use preventDefault, sometimes mouseup event does not firing
     e.preventDefault();
     isHoldingMouseButton = true;    
 })
@@ -172,6 +177,8 @@ sketchBoard.addEventListener("mouseup",(e)=>{
 
 opacity.addEventListener("input", (e)=>{
     opacityValue.innerText = e.target.value;
+    //Get number between 0 - 1
+    selectedOpacity = e.target.value * 0.01;
 })
 
 randomColor.addEventListener("click", ()=>
